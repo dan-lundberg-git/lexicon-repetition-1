@@ -8,7 +8,7 @@ has a volume in ml, and a fruit has a country of origin. When a product is displ
 including that specific detail. The machine runs on coins. It accepts only the standard Swedish coin values: 1, 2, 5,
 10, 20, and 50 kr. Any other value is rejected immediately and the balance does not change.
 
-## Extract Entities and Attributes
+## Extract Entities & Attributes
 
 | Noun            | Type      | Comment                          |
 |-----------------|-----------|----------------------------------|
@@ -19,37 +19,35 @@ including that specific detail. The machine runs on coins. It accepts only the s
 | Fruit           | Entity    | Extends Product                  |
 | Name            | Attribute | Product                          |
 | Price           | Attribute | Product                          |
-| Stock Quantity  | Attribute | Product                          |
+| Quantity        | Attribute | Product                          |
 | Weight          | Attribute | Snack                            |
 | Volume          | Attribute | Beverage                         |
 | Origin          | Attribute | Fruit                            |
 | Coin            | Category  | Enum                             |
 
-## Draw Relationships
+## Draw Relationships & Multiplicity
 
 ```mermaid
----
-title: Vending Machine
----
 classDiagram
     direction TB
     class VendingMachine {
     }
     class Product {
-        <<abstract>>
+        Name
+        Price
+        Quantity
     }
     class Snack {
+        Weight
     }
     class Beverage {
+        Volume
     }
     class Fruit {
-    }
-    class Coins {
-        <<enumeration>>
+        Origin
     }
 
-    VendingMachine --> Product
-    VendingMachine --> Coins
+    VendingMachine "1" --> "1..*" Product: has
     Product --> Snack
     Product --> Beverage
     Product --> Fruit
