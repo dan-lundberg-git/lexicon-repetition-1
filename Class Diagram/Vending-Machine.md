@@ -18,6 +18,10 @@ classDiagram
     }
     class VendingMachine {
         - products: List~Product~
+        - balance: int
+        + insertCoin(coin: int)
+        + purchaseItem(id: int)
+        + returnChange()
     }
     class Product {
         <<abstract>>
@@ -25,26 +29,29 @@ classDiagram
         - name: String
         - price: int
         - quantity: int
-        + describe()*
+        + describeItem()*
     }
     class Snack {
         - weight: int
+        + describeItem() String
     }
     class Beverage {
         - volume: int
+        + describeItem() String
     }
     class Fruit {
         - origin: String
+        + describeItem() String
     }
-    class Coins {
-        <<enumeration>>
-        1, 2, 5, 10, 20, 50
+    class Coin {
+        <<final>>
+        $ COINS: List~Integer~ = 1, 2, 5, 10, 20, 50
     }
 
 Main "1" o-- "1" VendingMachine: has
 VendingMachine "1" o-- "1..*" Product: has
-VendingMachine --> Coins: uses
-Product <-- Snack
-Product <-- Beverage
-Product <-- Fruit
+VendingMachine --> Coin: uses
+Product <-- Snack: extends
+Product <-- Beverage: extends
+Product <-- Fruit: extends
 ```
