@@ -16,12 +16,16 @@ classDiagram
     class Main {
         - vm: VendingMachine
     }
+    class Console {
+        + printMenu(producs: List~Product~)
+    }
     class VendingMachine {
         - products: List~Product~
         - balance: int
         + insertCoin(coin: int)
         + purchaseItem(id: int)
         + returnChange()
+        + getProducts() List~Product~
     }
     class Product {
         <<abstract>>
@@ -49,6 +53,7 @@ classDiagram
     }
 
 Main "1" o-- "1" VendingMachine: has
+Main "1" o-- "1" Console: has
 VendingMachine "1" o-- "1..*" Product: has
 VendingMachine --> Coin: uses
 Product <-- Snack: extends
